@@ -1,8 +1,8 @@
 let humanScore = 0;
 let computerScore = 0;
+const words = ["rock", "paper", "scissors"];
 
 function getComputerChoice() {
-  let words = ["rock", "paper", "scissors"];
   const randomWord = words[Math.floor(Math.random() * words.length)];
   console.log(randomWord);
   return randomWord;
@@ -33,6 +33,44 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+function getPlayerChoice() {
+  let validatedInput = false;
+  while (validatedInput == false) {
+    const choice = prompt("Rock Paper Scissors");
+    if (choice == null) {
+      continue;
+    }
+    const choiceInLower = choice.toLowerCase();
+    if (words.includes(choiceInLower)) {
+      validatedInput = true;
+      return choiceInLower;
+    }
+  }
+}
+
+function game() {
+  let scorePlayer = 0;
+  let scoreComputer = 0;
+  console.log("Welcome");
+  for (let i = 0; i < 5; i++) {
+    const playerSelection = getPlayerChoice();
+    const computerSelection = getComputerChoice();
+    console.log(playRound(playerSelection, computerSelection));
+    console.log("----------");
+    if (checkWinner(playerSelection, computerSelection) == "Player") {
+      scorePlayer++;
+    } else if (checkWinner(playerSelection, computerSelection) == "Computer") {
+      scoreComputer++;
+    }
+  }
+  console.log("Game over!");
+  if (scorePlayer > scoreComputer) {
+    console.log("You win the game!");
+  } else if (scoreComputer > scorePlayer) {
+    console.log("You lose the game:(");
+  } else {
+    console.log("It's a tieeeee");
+  }
+}
+
+game();
