@@ -1,13 +1,38 @@
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
   let words = ["rock", "paper", "scissors"];
   const randomWord = words[Math.floor(Math.random() * words.length)];
+  console.log(randomWord);
   return randomWord;
 }
-console.log(getComputerChoice());
 
-function getHumanChoice() {
-  const choice = prompt("Ваш выбор");
-  return choice;
+function checkWinner(playerSelection, computerSelection) {
+  if (playerSelection == computerSelection) {
+    return "Tie";
+  } else if (
+    (playerSelection == "rock" && computerSelection == "scissors") ||
+    (playerSelection == "scissors" && computerSelection == "paper") ||
+    (playerSelection == "paper" && computerSelection == "rock")
+  ) {
+    return "Player";
+  } else {
+    return "Computer";
+  }
 }
-const userWord = getHumanChoice();
-console.log(userWord);
+
+function playRound(playerSelection, computerSelection) {
+  const result = checkWinner(playerSelection, computerSelection);
+  if (result == "Tie") {
+    return "It's a Tie";
+  } else if (result == "Player") {
+    return `You win! ${playerSelection} beats ${computerSelection}`;
+  } else {
+    return `You lose! ${playerSelection} lose to ${computerSelection}`;
+  }
+}
+
+const playerSelection = "rock";
+const computerSelection = getComputerChoice();
+console.log(playRound(playerSelection, computerSelection));
