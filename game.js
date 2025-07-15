@@ -1,11 +1,24 @@
-let humanScore = 0;
-let computerScore = 0;
 const words = ["rock", "paper", "scissors"];
 
 function getComputerChoice() {
-  const randomWord = words[Math.floor(Math.random() * words.length)];
+  let randomWord = words[Math.floor(Math.random() * words.length)];
   console.log(randomWord);
   return randomWord;
+}
+
+function getPlayerChoice() {
+  let validatedInput = false;
+  while (validatedInput == false) {
+    const choice = prompt("Rock Paper Scissors");
+    if (choice == null) {
+      continue;
+    }
+    const choiceInLower = choice.toLowerCase();
+    if (words.includes(choiceInLower)) {
+      validatedInput = true;
+      return choiceInLower;
+    }
+  }
 }
 
 function checkWinner(playerSelection, computerSelection) {
@@ -25,51 +38,35 @@ function checkWinner(playerSelection, computerSelection) {
 function playRound(playerSelection, computerSelection) {
   const result = checkWinner(playerSelection, computerSelection);
   if (result == "Tie") {
-    return "It's a Tie";
+    return "It's a tie";
   } else if (result == "Player") {
     return `You win! ${playerSelection} beats ${computerSelection}`;
   } else {
-    return `You lose! ${playerSelection} lose to ${computerSelection}`;
-  }
-}
-
-function getPlayerChoice() {
-  let validatedInput = false;
-  while (validatedInput == false) {
-    const choice = prompt("Rock Paper Scissors");
-    if (choice == null) {
-      continue;
-    }
-    const choiceInLower = choice.toLowerCase();
-    if (words.includes(choiceInLower)) {
-      validatedInput = true;
-      return choiceInLower;
-    }
+    return `You lose! ${computerSelection} beats ${playerSelection}`;
   }
 }
 
 function game() {
   let scorePlayer = 0;
   let scoreComputer = 0;
-  console.log("Welcome");
+  console.log("Welcome!");
   for (let i = 0; i < 5; i++) {
     const playerSelection = getPlayerChoice();
     const computerSelection = getComputerChoice();
     console.log(playRound(playerSelection, computerSelection));
-    console.log("----------");
+    console.log("---------");
     if (checkWinner(playerSelection, computerSelection) == "Player") {
-      scorePlayer++;
+      scorePlayer += 1;
     } else if (checkWinner(playerSelection, computerSelection) == "Computer") {
-      scoreComputer++;
+      scoreComputer += 1;
     }
   }
-  console.log("Game over!");
   if (scorePlayer > scoreComputer) {
-    console.log("You win the game!");
+    console.log("You win!");
   } else if (scoreComputer > scorePlayer) {
-    console.log("You lose the game:(");
+    console.log("You lose!");
   } else {
-    console.log("It's a tieeeee");
+    console.log("It's a tie!");
   }
 }
 
