@@ -1,11 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game</title>
+    <meta charset="utf-8" />
+    <title>Камень, ножницы, бумага — расширенная версия</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f3f6fb;
+        color: #222;
+        text-align: center;
+        padding: 28px;
+      }
+      h1 {
+        margin-bottom: 6px;
+      }
+      .board {
+        max-width: 720px;
+        margin: 18px auto;
+        background: #fff;
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+      }
+      .score {
+        font-weight: 600;
+        margin: 12px 0;
+      }
+      .choices {
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        margin: 18px 0;
+      }
+      .choice-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        border: 2px solid #e0e6ef;
+        background: #fff;
+        padding: 12px 16px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 110px;
+        transition: transform 0.12s ease, box-shadow 0.12s ease;
+      }
+      .choice-btn:active {
+        transform: translateY(2px);
+      }
+      .choice-btn:hover {
+        box-shadow: 0 6px 18px rgba(10, 30, 80, 0.06);
+        transform: scale(1.04);
+      }
+      .icon {
+        font-size: 40px;
+      }
+      #result {
+        margin-top: 12px;
+        min-height: 64px;
+        font-size: 16px;
+      }
+      #restart-btn {
+        margin-top: 14px;
+        padding: 10px 16px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 8px;
+        border: 0;
+        background: #1976d2;
+        color: white;
+      }
+      #restart-btn[hidden] {
+        display: none;
+      }
+      .final-win {
+        color: green;
+        font-weight: 700;
+      }
+      .final-lose {
+        color: #c62828;
+        font-weight: 700;
+      }
+    </style>
   </head>
   <body>
-    <script src="/game.js"></script>
+    <div class="board">
+      <h1>Камень Ножницы Бумага</h1>
+      <div class="score" id="score">Вы: 0 | Компьютер: 0</div>
+
+      <div class="choices" id="choices">
+        <button class="choice-btn" data-choice="камень" aria-label="Камень">
+          <div class="icon">🪨</div>
+          <div>Камень</div>
+        </button>
+
+        <button class="choice-btn" data-choice="ножницы" aria-label="Ножницы">
+          <div class="icon">✂️</div>
+          <div>Ножницы</div>
+        </button>
+
+        <button class="choice-btn" data-choice="бумага" aria-label="Бумага">
+          <div class="icon">📄</div>
+          <div>Бумага</div>
+        </button>
+      </div>
+
+      <div id="result" aria-live="polite"></div>
+
+      <button id="restart-btn" hidden>Начать заново</button>
+    </div>
+
+    <!-- Подключаем скрипт в конце, чтобы DOM уже был загружен -->
+    <script src="main.js"></script>
   </body>
 </html>
